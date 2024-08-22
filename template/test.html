@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Welcome | {% endblock %}
+
+{% block content %}
+<script>
+      function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+</script>
+{% for post in post_items %}
+  {% if request.user in post.follows.all %}
+  <section class="feed-hero container">
+      <div class="post-container">
+        <div class="user-profile">
+          <img src="{% static 'images/dpplaceholder.png'%}" alt="">
+            <div class="post-profile">
+              <p>{{ post.user.username }}</p>
+              <span>{{ post.posted }}</span>
+            </div>
+        </div>
+        <a href="{% url 'post-details' post.id %}"><img src="{{ post.picture }}" class="post-img"></a>
+        <p class="post-text">{{ post.caption }}</p>
+        <span class="post-tags">{% for tag in post.tag.all %}<a style="text-decoration: none; color: var(--clr-slate400);" href="{{tag.get_absolute_url}}">#{{tag}} </a>{% endfor %}</span>
+        <div class="post-row">
+          <div class="activity-icons">
+            <div>
+                <img id="heart{{post.id}}" src="{% static 'images/heart.svg'%}" alt="">
+                <p class="num-of-likes" id="num{{post.id}}">{{ post.likes.count }}</p>
+            </div>
+            <div><img src="{% static 'images/chat.svg'%}" alt="">45</div>
+            <div>
+              <a href="{% url 'saved' post.id %}">
+                <img src="{% static 'images/save.svg'%}" alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  <script>
+    document.getElementById("heart{{ post.id }}").addEventListener("click", function() {
+      let btn = document.getElementById("heart{{ post.id }}");
+      let num_of_likes = document.getElementById("num{{ post.id }}");
+      let post_id = "{{ post.id }}";
+
+      let url = "{% url 'like' %}";
+      const data = { id: post_id };
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+
+        if (data["check"] == 1) {
+          btn.src = "{% static 'images/heartfilled.svg' %}";
+        } else if (data["check"] == 0) {
+          btn.src = "{% static 'images/heart.svg' %}";
+        } else {
+          alert("You need to log in");
+        }
+        num_of_likes.innerHTML = data["num_of_likes"];
+      });
+    });
+  </script>
+  {% endif %}
+{% endfor %}
+{% endblock %}
+
+
+   

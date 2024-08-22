@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inbox | {% endblock %}
+
+{% block content %}
+<style>
+    .main-hero{
+        height: 100vh;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+{% if user.is_authenticated %}
+    <input id="logged-in-user" type="hidden" value="{{ user.id }}">
+{% endif %}
+<section class="chat-hero">
+    <div class="left-side">
+        <div class="chat-header" style="border-top-right-radius: 0;" >
+            <h1>Directs</h1>
+            <!-- <img class="chat-dp" src="{% static 'images/dpplaceholder.png' %}" alt="">
+            <ul class="nav_icons">
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path fill="var(--clr-light)" d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 
+                        56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 
+                        56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 
+                        56.5T480-640Z"/>
+                    </svg>
+                </li>
+            </ul> -->
+        </div>
+        <!-- search -->
+        <!-- <div class="search_chat">
+            <div class="chat-searchbox">
+                <input type="text" name="" id="" placeholder="Search...">
+            </div>
+        </div> -->
+        <!-- chat-list -->
+        <div class="chat-list">
+            <div class="contacts">
+                {% for thread in Threads %}
+                    <div class="{% if forloop.first %}active{% endif %} chat-block" chat-id="chat_{{ thread.id }}">
+                        <a href="#"><img class="chat-dp" src="/{{ pro.image }}" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;" alt="Profile picture" /></a>
+                        <div class="chatlist-profile">
+                            <div class="listhead">
+                                {% if thread.first_person == user %}
+                                    <p><strong><a href="#">{{ thread.second_person.username}}</a></strong></p>
+                                {% else %}
+                                    <p><strong><a href="#">{{ thread.first_person.username}}</a></strong></p>
+                                {% endif %}
+                                <p class="time">10:56</p>
+                            </div>
+                            <div class="listfoot">
+                                <span>@imperfect_soloist</span>
+                                <b>1</b>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!-- <div class="chat-block active">
+                    <a href="#"><img class="chat-dp" src="/{{ pro.image }}" onerror="this.src=`{% static 'images/giyu.jpeg' %}` ;" alt="Profile picture" /></a>
+                    <div class="chatlist-profile">
+                        <div class="listhead">
+                            <p><strong><a style="text-decoration: none; color: var(--clr-black);" href="#">Drago Strange</a></strong></p>
+                            <p class="time">10:56</p>
+                        </div>
+                        <span>@imperfect_soloist</span>
+                    </div>
+                </div> -->
+                <!-- <div class="chat-block">
+                    <div class="user-profile" style="width: 100%;">
+                        <a href="#"><img class="chat-dp" src="/{{ pro.image }}" onerror="this.src=`{% static 'images/giyu.jpeg' %}` ;" alt="Profile picture" /></a>
+                        <div class="chatlist-profile">
+                            <div class="listhead">
+                                <p><strong><a style="text-decoration: none; color: var(--clr-black);" href="#">Drago Strange</a></strong></p>
+                                <p class="time">10:56</p>
+                            </div>
+                          <span>@imperfect_soloist</span>
+                        </div>
+                    </div>
+                </div>  -->
+            </div>
+        </div>
+    </div>
+    <div class="chat-container">
+        {% for thread in Threads%}
+        <div class="right-side {% if forloop.first %}hide now_active{% else %}hide{% endif %}" chat-id="chat_{{ thread.id }}" other-user-id="
+            {% if thread.first_person == user %}
+                {{ thread.second_person.id }}
+            {% else %}
+                {{ thread.first_person.id }}
+            {% endif %}
+            ">
+            <div class="chat-header" style="border-top-left-radius: 0;">
+                <div class="imgtext">
+                    <img class="chat-dp" src="{% static 'images/dpplaceholder.png' %}" alt="">
+                    {% if thread.first_person != request.user %}
+                        <h4>{{ thread.first_person.username }}<br>
+                            {% if thread.first_person.profile.status %}
+                                <span>Online</span>
+                            {% else %}
+                                <span>Offline</span>
+                            {% endif %}
+                        </h4>
+                    {% else %}
+                        <h4>{{ thread.second_person.username }}<br>
+                            {% if thread.second_person.profile.status %}
+                                <span>Online</span>
+                            {% else %}
+                                <span>Offline</span>
+                            {% endif %}
+                        </h4>
+                    {% endif %}
+                </div>
+                <ul class="nav_icons">
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                            <path fill="var(--clr-light)" d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 
+                            56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 
+                            56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 
+                            56.5T480-640Z"/>
+                        </svg>
+                    </li>
+                </ul>
+            </div>
+            <!-- chatbox -->
+            <div class="chatbox">
+                {% for chat in thread.chatmessage_thread.all %}
+                    {% if chat.user == user %}
+                        <div class="message my_message">
+                            {% if "http:" in chat.message or "https:" in chat.message %}
+                                <p><a href="{{ chat.message }}" target="_blank">{{ chat.message }}</a><br><span>12:15</span></p>
+                            {% else %}
+                                <p>{{ chat.message }}<br><span>12:15</span></p>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="message frnd_message">
+                            {% if "http:" in chat.message or "https:" in chat.message %}
+                                <p><a href="{{ chat.message }}" target="_blank">{{ chat.message }}</a><br><span>12:15</span></p>
+                            {% else %}
+                                <p>{{ chat.message }}<br><span>12:15</span></p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    <!-- <div class="message my_message">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit doloremque tempora enim, perferendis minus facilis nulla deserunt voluptatem culpa dolores, veritatis obcaecati, labore doloribus at itaque expedita aliquam voluptatibus eius?<br><span>12:15</span></p>
+                    </div>
+                    <div class="message frnd_message">
+                        <p>Hello<br><span>12:15</span></p>
+                    </div> -->
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+            <!-- chat-input -->
+            <form id="send-message-form">
+                <div class="chatbox-input">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path fill="var(--clr-light)" d="M720-330q0 104-73 177T470-80q-104 0-177-73t-73-177v-370q0-75 52.5-127.5T400-880q75
+                        0 127.5 52.5T580-700v350q0 46-32 78t-78 32q-46 0-78-32t-32-78v-370h80v370q0 13 8.5 21.5T470-320q13
+                        0 21.5-8.5T500-350v-350q-1-42-29.5-71T400-800q-42 0-71 29t-29 71v370q-1 71 49 120.5T470-160q70 0 
+                        119-49.5T640-330v-390h80v390Z"/>
+                    </svg>
+                    <input type="text" id="input_message" placeholder="Type a message...">
+                    <button type="submit">
+                        <svg class="send" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                            <path fill="var(--clr-light)" d="M120-160v-240l320-80-320-80v-240l760 320-760 320Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+    </div>
+</section>
+<script src="{% static 'javascript/messages.js' %}"></script>
+{% endblock %}

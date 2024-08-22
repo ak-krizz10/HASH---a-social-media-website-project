@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create | {% endblock %}
+
+{% block content %}
+<section class="hero container">
+    <div class="write-post-container">
+        <h3>Create Post</h3>
+        <div class="write-input-container">
+            <div class="user-profile">
+                <img src="{% static 'images/dpplaceholder.png'%}" alt="">
+                <div class="post-profile">
+                    <p>John Nicholson</p>
+                </div>
+            </div>
+            <div class="post-input-container">
+                <textarea rows="20" placeholder="What's on your mind?"></textarea>
+                <div class="addpost-links">
+                    <a class="post-image-icon" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                            <path fill=var(--clr-light) d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 
+                            23.5-56.5T200-840h360v80H200v560h560v-360h80v360q0 33-23.5 
+                            56.5T760-120H200Zm480-480v-80h-80v-80h80v-80h80v80h80v80h-80v80h-80ZM240-280h480L570-480
+                            450-320l-90-120-120 160Zm-40-480v560-560Z"/>
+                        </svg>
+                    </a>
+                    <a class="post-tag-icon" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                            <path fill=var(--clr-light) d="m240-160 40-160H120l20-80h160l40-160H180l20-80h160l40-160h80l-40 160h160l40-160h80l-40
+                            160h160l-20 80H660l-40 160h160l-20 80H600l-40 160h-80l40-160H360l-40 160h-80Zm140-240h160l40-160H420l-40 160Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <button type="submit"><a class="header__resume btn" href="#">Post Now</a></button>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Profile| {% endblock %}
+
+{% block content %}
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+</script>
+<section class="hero container">
+  <img class="hero__img" src="/{{ profile.image }}" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;"  alt="Profile picture" />
+  <!-- <h2 class="hero__subtitle">Hi, I'm Dev 👋</h2> -->
+  <h1 class="hero__title">
+    {% if profile.full_name%}
+      {{ profile.full_name }}
+    {% else %}
+      {{ profile.user.username|title }}
+    {% endif %}
+  </h1>
+  <h2 class="hero__subtitle">@{{ profile.user.username }}</h2>
+  <!-- <a class="hero__btn btn" href="{%url 'signup'%}">Join Now</a> -->
+  <div class="follow__count">
+    <a style="text-decoration: none; color: var(--clr-light);" href="{% url 'profilee' profile.user.username %}">
+      <div class="posts__count">
+        <h3 class="">Posts</h3>
+        {{profile.user.post_set.all.count}}
+      </div>
+    </a>
+    <a style="text-decoration: none; color: var(--clr-light);" href="{% url 'thoughts' profile.user.username %}">
+      <div class="tweets__count">
+        <h3 class="">Thoughts</h3>
+        {{profile.user.tweet_set.all.count}}
+      </div>
+    </a>
+    <div class="followers__count">
+      <h3 class="">Followers</h3>
+      {{profile.followers.all.count}}
+      <!-- {% for i in profile.following.all %}
+        <p>{{i}}</p>
+        {% endfor %}   -->
+    </div>
+    <div class="following__count">
+      <h3 class="">Following</h3>
+      {{profile.following.all.count}}
+    </div>
+    <a style="text-decoration: none; color: var(--clr-light);" href="{% url 'savedd' profile.user %}">
+      <div class="saved__count">
+        <h3 class="">Saved</h3>
+        {{ profile.saved.count }}
+      </div>
+    </a>
+  </div>
+  {% if profile.user == request.user %}
+    <a class="btn"  href="{% url 'editprofile' %}">Edit Profile</a>
+  {% endif %}
+  {% if profile.user != request.user %}
+  <div class="follow__button">
+    {% if request.user.profile in profile.followers.all %}
+      <div>
+        <a class="btn"  href="{% url 'follownow' profile.user.id 0 %}">Unfollow</a>
+      </div>
+    {% else %}  
+      <div>
+      <a class="btn"  href="{% url 'follownow' profile.user.id 1 %}">Follow</a>
+      </div>
+    {% endif %}
+      <div>
+        <a class="btn"  href="{% url 'link' profile.user.id %}">Message</a>
+      </div>
+    {% endif %}
+    </div>
+    <p class="featured__description profile__bio">
+      <!-- <strong><b>Bio</b></strong><br> -->
+      {{ profile.bio }}
+    </p>
+    <!-- <div class="profile-links">
+      <a href="{% url 'profilee' profile.user %}" class="{% if url_name == 'profilee' %}active-link{% endif %}">Posts</a>
+      <a href="{% url 'savedd' profile.user %}" class="{% if url_name == 'savedd' %}active-link{% endif %}">Saved</a>
+    </div> -->
+    {% if posts %}
+      <div class="featured__img-container">
+          {% for post in posts %}
+            <div class="">
+              <a href="{{ post.get_absolute_url }}">
+                {% if post.picture %}
+                  <img class="" src="{{ post.picture.url }}" alt="">
+                {% else %}
+                  <video src="{{ post.video }}"></video>
+                {% endif %}
+              </a>
+            </div>
+          {% endfor %}
+      </div>
+    {% elif tweets%}
+      {% for tweet in tweets %}
+      <section class="feed-hero container">
+          <div class="post-container">
+            <div class="user-profile">
+              <img src="/{{ tweet.user.profile.image }}" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;" alt="Profile picture" />
+              <div class="post-profile">
+                <p><strong><a style="text-decoration: none; color: var(--clr-light);" href="{% url 'profilee' tweet.user.username %}">{{ tweet.user.username }}</a></strong></p>
+                <!-- <span>{{ tweet.created }}</span> -->
+              </div>
+            </div>
+            <a href="{% url 'tweet-details' tweet.id %}" style="text-decoration: none;">
+              <p class="post-text">{{ tweet.tweet }}</p>
+            </a>
+            <div class="post-row">
+              <div class="activity-icons">
+                <span>{{ tweet.updated |date }}</span>
+                <div class="interactions">
+                  <div>
+                    <!-- Add the SVG content for the heart icon here -->
+                    <!-- You can copy the content of your heart.svg file and paste it here -->
+                    {% if tweet.user_has_liked %}
+                      <svg id="heart{{ tweet.id }}" class="heart-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path fill=var(--clr-rose) d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
+                      </svg>
+                    {% else %}
+                      <svg  id="heart{{ tweet.id }}" class="heart-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path fill=var(--clr-light) d="m480-146.925-44.153-39.691q-99.461-90.231-164.5-155.077-65.038-64.846-103.076-115.423-38.039-50.577-53.154-92.269-15.116-41.692-15.116-84.615 0-85.153 57.423-142.576Q214.847-833.999 300-833.999q52.385 0 99 24.501 46.615 24.5 81 70.269 34.385-45.769 81-70.269 46.615-24.501 99-24.501 85.153 0 142.576 57.423Q859.999-719.153 859.999-634q0 42.923-15.116 84.615-15.115 41.692-53.154 92.269-38.038 50.577-102.884 115.423T524.153-186.616L480-146.925ZM480-228q96-86.385 158-148.077 62-61.692 98-107.192 36-45.5 50-80.808 14-35.308 14-69.923 0-60-40-100t-100-40q-47.385 0-87.577 26.885-40.192 26.884-63.654 74.808h-57.538q-23.846-48.308-63.846-75.001Q347.385-774 300-774q-59.615 0-99.808 40Q160-694 160-634q0 34.615 14 69.923t50 80.808q36 45.5 98 107T480-228Zm0-273Z" />
+                      </svg>
+                    {% endif %}
+                    <div class="like-count-container">
+                      <p class="num-of-likes" id="num{{ tweet.id }}">{{ tweet.likes.count }}</p>
+                    </div>
+                  </div>
+                  <div class="comments" onclick="toggleCommentSection('{{ tweet.id }}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                      <path fill=var(--clr-light) d="M250.001-410.001h299.998v-59.998H250.001v59.998Zm0-120h459.998v-59.998H250.001v59.998Zm0-120h459.998v-59.998H250.001v59.998Zm-150
+                        531.537v-669.227q0-30.308 21-51.308t51.308-21h615.382q30.308 0 51.308 21t21 51.308v455.382q0 30.308-21 51.308t-51.308 21H241.539L100.001-118.464Zm116-201.536h571.69q4.616
+                        0 8.463-3.846 3.846-3.847 3.846-8.463v-455.382q0-4.616-3.846-8.463-3.847-3.846-8.463-3.846H172.309q-4.616 0-8.463 3.846-3.846 3.847-3.846 8.463v523.076L216.001-320ZM160-320v-480V-320Z" />
+                    </svg>
+                    <div class="comment-count-container">
+                      <p class="num-of-comments" id="comment-count-tweet-{{tweet.id}}">{{ tweet.reply_set.all.count }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Comment section -->
+            <div class="comment-section hidden" id="comment-section-{{ tweet.id }}">
+              <!-- Form to add a new comment -->
+              <form class="comment-form" method="post" action="{% url 'tweet-details' tweet.id %}">
+                {% csrf_token %}
+                <input type="text" name="reply" placeholder="Add a Reply..." class="commentInput">
+                <button type="submit" class="header__resume btn commentButton">Reply</button>
+              </form>
+            </div>
+          </div>
+        </a>
+      </section>
+      <script>
+        // Function to toggle the visibility of the comment section
+        function toggleCommentSection(tweetId) {
+          const commentSection = document.getElementById(`comment-section-${tweetId}`);
+          commentSection.classList.toggle('hidden');
+        }
+        //Like with Ajax
+        document.getElementById("heart{{ tweet.id }}").addEventListener("click", function() {
+          let svg = document.getElementById("heart{{ tweet.id }}");
+          let likeCountContainer = document.getElementById("num{{ tweet.id }}");
+          let tweet_id = "{{ tweet.id }}";
+    
+          let url = "{% url 'liketweet' %}";
+          const data = { id: tweet_id };
+    
+          fetch(url, {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json",
+              'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(data)
+          })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+    
+            // Set the inner HTML of the SVG based on the updated "user_has_liked" information
+            if (data["check"]) {
+              svg.innerHTML = `<path fill=var(--clr-rose) d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"/>`;
+              svg.classList.add('like-animation'); // Add the animation class
+            } else {
+              svg.innerHTML = `<path fill=var(--clr-light) d="m480-146.925-44.153-39.691q-99.461-90.231-164.5-155.077-65.038-64.846-103.076-115.423-38.039-50.577-53.154-92.269-15.116-41.692-15.116-84.615 0-85.153 57.423-142.576Q214.847-833.999 300-833.999q52.385 0 99 24.501 46.615 24.5 81 70.269 34.385-45.769 81-70.269 46.615-24.501 99-24.501 85.153 0 142.576 57.423Q859.999-719.153 859.999-634q0 42.923-15.116 84.615-15.115 41.692-53.154 92.269-38.038 50.577-102.884 115.423T524.153-186.616L480-146.925ZM480-228q96-86.385 158-148.077 62-61.692 98-107.192 36-45.5 50-80.808 14-35.308 14-69.923 0-60-40-100t-100-40q-47.385 0-87.577 26.885-40.192 26.884-63.654 74.808h-57.538q-23.846-48.308-63.846-75.001Q347.385-774 300-774q-59.615 0-99.808 40Q160-694 160-634q0 34.615 14 69.923t50 80.808q36 45.5 98 107T480-228Zm0-273Z"/>`;
+              svg.classList.remove('like-animation'); // Remove the animation class
+    
+              // Add scale-down animation when unliking
+              svg.classList.add('scale-down-animation');
+              // Remove the scale-down animation class after a short delay to allow the animation to complete
+              setTimeout(() => {
+                svg.classList.remove('scale-down-animation');
+              }, 300);
+            }
+    
+            // Update the inner text of the like count container
+            likeCountContainer.innerText = data["num_of_likes"];
+          });
+        });
+      </script>
+    {% endfor %}
+    {% else %}
+    <div class="graph-container">
+      <div class="bar-chart">
+        <!-- Loop through screen time data to generate bars -->
+        {% for day, time_spent in bar_data.items %}
+        <div class="bar">
+          {{ day }}
+          <div class="bar-fill" style='height: calc( {{ time_spent }} / 12 * 400px);'></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    <br>
+    <br>
+    </section>
+    <script>
+      // let heroimg = document.getElementById("heroimg")
+      // heroimg.onerror = function(){
+      //   heroimg.src="{% static 'images/dpplaceholder.png'%}";
+      // }
+</script>
+{% endblock %}

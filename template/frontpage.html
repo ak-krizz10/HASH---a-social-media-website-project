@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Welcome | {% endblock %}
+
+{% block content %}
+<section class="hero container">
+        <img class="hero__img" src="{% static 'images/dpplaceholder.png'%}" alt="Profile picture" />
+        <!-- <h2 class="hero__subtitle">Hi, I'm Dev 👋</h2> -->
+        <h1 class="hero__title">
+          # Hash
+        </h1>
+        <p class="hero__description">
+            {% if user.is_authenticated %}
+                <p>Hello {{fn}}</p>
+                <p>Ur logged in</p>
+                <a class="hero__btn btn" href="{% url 'feed' %}">Feed</a>
+                <a class="hero__btn btn" href="{% url 'signout' %}">Log Out</a>
+            {% else %}
+                A Social Media Application with some <strong>Unique Features</strong>.
+                From <strong>Design</strong> to <strong>Functionality</strong>, 
+                we're <strong><a>Redefining</a></strong> what a social network can and should be.
+                </p>
+                <a class="hero__btn btn" href="{% url 'signup' %}">Register</a>
+            {% endif %}
+        <br>
+        <br>
+        <br>
+</section>
+{% endblock %}
+
+
+
+   

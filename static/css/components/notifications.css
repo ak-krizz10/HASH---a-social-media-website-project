@@ -1,0 +1,33 @@
+.noti-container {
+    width: 70%;
+    background: var(--clr-slate850);
+    border-radius: 6px;
+    padding: 20px;
+    color: var(--clr-light);
+}
+
+.noti-profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.noti-profile-img{
+    width: 70px;
+    border-radius: 50%;
+}
+
+.noti-post-img{
+    width: 70px;
+    height: 70px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.noti-comment-container{
+    display: flex;
+}
+
+.noti-comment{
+    margin-left: 5px;
+}

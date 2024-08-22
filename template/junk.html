@@ -1,0 +1,207 @@
+<!-- views.py -->
+#Likes
+# def like(request, post_id):
+#     user = request.user
+#     post = Post.objects.get(id=post_id)
+#     current_likes = post.likes
+#     liked = Likes.objects.filter(user=user, post=post).count()
+#     if not liked:
+#         liked = Likes.objects.create(user=user, post=post)
+#         current_likes = current_likes + 1
+#     else:
+#         liked = Likes.objects.filter(user=user, post=post).delete()
+#         current_likes = current_likes - 1
+
+#     post.likes = current_likes
+#     post.save()
+#     return HttpResponseRedirect(reverse('', args=[post_id]))
+
+
+
+
+# def showposts(request):
+#     b1 = Blogpost.objects.all()
+#     return render(request,'home.html',{'b1': b1})
+
+# def addposts(request):
+#     if request.method =='POST':
+#         form = Addpost(request.POST,request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect(showposts)
+#     else:
+#         form=Addpost()
+#     return render(request,'addform.html',{'form':form})
+
+# def editposts(request,id):
+#     p1 = Blogpost.objects.get(id=id)
+#     if request.method=='POST':
+#         form=Addpost(request.POST,instance=p1)
+#         if form.is_valid():
+#             form.save()
+#             return redirect(showposts)
+#     else:
+#         form = Addpost(instance = p1)
+#     return render(request,'addform.html',{'form':form})
+
+# def deleteposts(request,id):
+#     d1 = Blogpost.objects.get(id=id)
+#     if request.method=='POST':
+#         d1.delete()
+#         return redirect(showposts)
+#     return render(request,'delete.html',{'d1':d1})
+
+def feed(request):
+#     user = request.user
+#     posts = Stream.objects.filter(user=user)
+#     group_ids = []
+#     for post in posts:
+#         group_ids.append(post.post_id)
+#     post_items = Post.objects.filter(id__in=group_ids).all().order_by('-posted')
+#     return render(request,'feed.html', {'post_items': post_items})
+<!-- views.py -->
+
+
+<!-- urls.py blogging -->
+
+# path('<uuid:post_id>/like', views.like, name='like'),
+# path('showposts',views.showposts, name='show'),
+# path('addposts', views.addposts, name='addposts'),
+# path('editposts/<int:id>', views.editposts, name='edit'),
+# path('deleteposts/<int:id>', views.deleteposts, name='delete'),
+<!-- urls.py blogging -->
+
+
+
+
+        <!-- {% if url_name == "saved" %}
+
+              <a href="{% url 'saved' profile.id %}" style="color: blueviolet;">Saved</a>
+        {% else %}
+              <a href="{% url 'saved' profile.id %}">Saved</a>
+        {% endif %} -->
+
+
+
+<!-- 
+        def saved(request, post_id):
+        user = request.user
+        post = Post.objects.get(id=post_id)
+        profile = Profile.objects.get(user=user)
+        if profile.saved.filter(id=post_id).exists():
+            profile.saved.remove(post)
+        else:
+            profile.saved.add(post)
+        return HttpResponseRedirect(reverse('post-details', args=[post_id])) -->
+
+
+
+
+        // Function to handle AJAX request and update comments
+    function fetchComments(postId) {
+      fetch(`/fetch_post_comments/${postId}/`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.comments) {
+            // Update the UI with the received comments
+            const commentsContainer = document.getElementById(`comment-section-${postId}`);
+            commentsContainer.innerHTML = '';  // Clear existing comments
+
+            data.comments.forEach(comment => {
+              const newComment = document.createElement('div');
+              newComment.classList.add('comment');
+              newComment.textContent = comment.text;
+              commentsContainer.appendChild(newComment);
+            });
+
+            // Add the comment form back to the container
+            const commentForm = document.createElement('form');
+            commentForm.method = 'post';
+            commentForm.onsubmit = function(event) {
+              return addComment(event, postId);
+            };
+
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrfmiddlewaretoken';
+            csrfInput.value = '{{ csrf_token }}';
+
+            const textInput = document.createElement('textarea');
+            textInput.name = 'text';
+            textInput.placeholder = 'Add a comment...';
+
+            const submitButton = document.createElement('button');
+            submitButton.type = 'submit';
+            submitButton.textContent = 'Post Comment';
+
+            commentForm.appendChild(csrfInput);
+            commentForm.appendChild(textInput);
+            commentForm.appendChild(submitButton);
+
+            commentsContainer.appendChild(commentForm);
+          } else {
+            console.error('Error fetching comments:', data.error);
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    // Function to handle form submission
+    function addComment(event, postId) {
+      event.preventDefault();
+      const text = event.target.elements.text.value;
+
+      // Use AJAX to submit the comment form
+      fetch(`/add_comment/${postId}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: `text=${encodeURIComponent(text)}`,
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Comment added successfully
+          console.log('Success:', data.message);
+
+          // Clear the comment textarea
+          event.target.elements.text.value = '';
+        } else {
+          // Handle errors
+          console.error('Error:', data.message, data.errors);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+
+
+    <div class="bar">
+      <div class="bar-label">Monday</div>
+      <div class="bar-fill" style="bottom: 0; height: calc(5 / 12 * 300px);"></div>
+    </div>
+    <div class="bar">
+      <div class="bar-label">Tuesday</div>
+      <div class="bar-fill" style="bottom: 0; height: calc(8 / 12 * 300px);"></div>
+    </div>
+    <div class="bar">
+      <div class="bar-label">Wednesday</div>
+      <div class="bar-fill" style="height: calc(9 / 12 * 300px);"></div>
+    </div>
+    <div class="bar">
+      <div class="bar-label">Thursday</div>
+      <div class="bar-fill" style="height: calc(7 / 12 * 300px);"></div>
+    </div>
+    <div class="bar">
+      <div class="bar-label">Friday</div>
+      <div class="bar-fill" style="height: calc(6 / 12 * 300px);"></div>
+    </div>
+    <div class="bar">
+      <div class="bar-label">Saturday</div>
+      <div class="bar-fill" style="height: calc(3 / 12 * 300px);"></div>
+    </div>
+    <div class="bar">
+      <div class="bar-label">Sunday</div>
+      <div class="bar-fill" style="height: calc(12 / 12 * 300px);"></div>
+    </div>

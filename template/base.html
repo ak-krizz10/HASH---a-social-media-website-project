@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/modern-normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/explore.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/header.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/notifications.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/hero.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/about.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/featured.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/work.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/contact.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/footer.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/mobile-nav.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/editprofile.css'%}">
+    <link rel="stylesheet" href="{% static 'css/utils.css'%}">
+    <link rel="stylesheet" href="{% static 'css/chat.css'%}">
+    <link rel="stylesheet" href="{% static 'css/profile1.css'%}">
+    <link rel="stylesheet" href="{%static 'css/footernew.css'%}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/components/login.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/feed.css'%}">
+    <meta name="description" content="My Portfolio website" />
+    <meta name="keywords" content="web design, html, css, js" />
+    <title>{% block title %}{% endblock %}Home</title>
+  </head>
+  <body class="color-change-2x">
+    
+    <div id="blob"></div>
+    <main class="main-hero">
+      <div class="top-section">
+        {% include 'header.html' %}
+      </div>
+      {% block content %}
+      {% endblock %}
+    </main>
+    <!-- <footer class="footer container section"> -->
+    <!-- {% include 'footer.html' %} -->
+    <script  src="{% static 'javascript/darkmode.js' %}"></script>
+    <script  src="{% static 'javascript/lazyloading.js' %}"></script>
+    <script  src="{% static 'javascript/mobilenav.js' %}"></script>
+    <script  src="{% static 'javascript/menu.js' %}"></script>
+    <!-- <script  src="{% static 'javascript/glow.js' %}"></script> -->
+    <script>
+      /* -- Glow effect -- */
+      const blob = document.getElementById("blob");
+
+      window.onpointermove = event => { 
+        const { clientX, clientY } = event;
+        
+        blob.animate({
+          left: `${clientX}px`,
+          top: `${clientY}px`
+        }, { duration: 9000, fill: "forwards" });
+      }
+      // Enable hidden nav bar
+      {
+        const nav = document.querySelector(".top-section");
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener("scroll", () => {
+          if (lastScrollY < window.scrollY) {
+            nav.classList.add("nav--hidden");
+          } else {
+            nav.classList.remove("nav--hidden");
+          }
+
+          lastScrollY = window.scrollY;
+        });
+      }
+    </script>
+  </body>
+</html>

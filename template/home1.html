@@ -1,0 +1,520 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/modern-normalize.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/header.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/hero.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/about.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/featured.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/work.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/contact.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/footer.css'%}">
+    <link rel="stylesheet" href="{% static 'css/components/mobile-nav.css'%}">
+    <link rel="stylesheet" href="{% static 'css/utils.css'%}">
+    <link rel="stylesheet" href="{%static 'css/footernew.css'%}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <meta name="description" content="My Portfolio website" />
+    <meta name="keywords" content="web design, html, css, js" />
+    <title>Landing Page</title>
+  </head>
+  <body>
+    <header class="header container">
+      <h1 class="featured__title" style="color: var(--clr-slate400);">#Hash</h1>
+      <nav class="nav-title">
+        <ul class="header__menu">
+          <li>
+            <a class="header__link" href="#about">Portals</a>
+          </li>
+          <li>
+            <a class="header__link" href="#featured">Friends</a>
+          </li>
+          <li>
+            <a class="header__link" href="/newpost">Create</a>
+          </li>
+          <li>
+            <div class="header__searchbox" href="#">
+              <input type="text" placeholder="Find ...">
+            </div>
+          </li>
+          <li>
+            <div class="header__searchicon">
+              <a href="">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                  height="24" 
+                  viewBox="0 -960 960 960"
+                  width="24"
+                  fill=var(--clr-light)
+                >
+                  <path 
+                    d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </li>
+          <li class="header__line"></li>
+          <li>
+            <button
+              aria-label="theme-toggle btn"
+              id="theme-toggle"
+              class="header__sun"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+                />
+              </svg>
+            </button>
+          </li>
+          <li>
+            <a class="header__resume btn" href="/signout">Sign out</a>
+          </li>
+        </ul>
+        <button aria-label="mobile nav button" class="header__bars">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </nav>
+    </header>
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+      <nav>
+        <ul class="mobile-nav__menu">
+          <li>
+            <a class="mobile-nav__link" href="#about">About</a>
+          </li>
+          <li>
+            <a class="mobile-nav__link" href="#featured">Work</a>
+          </li>
+          <li>
+            <a class="mobile-nav__link" href="#contact">Contact</a>
+          </li>
+          <li class="mobile-nav__link-line"></li>
+          <li>
+            <button
+              aria-label="theme-toggle btn"
+              id="theme-toggle"
+              class="mobile-nav__sun"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+                />
+              </svg>
+            </button>
+          </li>
+          <li>
+            <a class="mobile-nav__btn btn" href="#">Resume</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- End of Mobile Navigation -->
+    <main>
+      <section class="hero container">
+        <img class="hero__img" src="{% static 'images/dpplaceholder.png'%}" alt="Profile picture" />
+        <!-- <h2 class="hero__subtitle">Hi, I'm Dev 👋</h2> -->
+        <h1 class="hero__title">
+          # Hash
+        </h1>
+        <p class="hero__description">
+          A Social Media Application with some <strong>Unique Features</strong> web
+          developer and <strong>UI/UX</strong>
+          enthusiast specialized in building stunning pixel-perfect interactive
+          websites/applications.
+        </p>
+        <a class="hero__btn btn" href="#">Reach out</a>
+      </section>
+      <section id="about" class="about container section">
+        <div class="about__content">
+          <h2 class="about__title">Screen Time</h2>
+          <h3 class="about__subtitle">For Real</h3>
+          <p class="about__description">
+            Take <a>control</a> of your digital life with our <strong>Screen Time</strong>
+            Feature first time in a Social Media, right in front of you.Track your daily 
+            and weekly usage, set personalised limits to strike the <a>perfect balance</a>
+            Empower yourself with mindful technology use.<strong>Join Us Today.</strong>
+          </p>
+          <p class="about__description">
+          </p>
+          <p class="about__description">
+          </p>
+          <p class="about__description">
+          </p>
+          <p class="about__description">
+          </p>
+          <p class="about__description">
+          </p>
+          <p class="about__description">
+          </p>
+          <hr class="about__hr" />
+          </div>
+        </div>
+        <div class="about__img-wrapper">
+          <img
+            class="about__img"
+            src="{% static 'images/ScreenTime.jpeg'%}"
+            alt="ScreenTime"
+          />
+        </div>
+      </section>
+      <section id="featured" class="featured container section">
+        <h3 class="featured__subtitle">Featured project</h3>
+        <div class="featured__wrapper">
+          <h2 class="featured__title">Slaying The Dragon</h2>
+          <a
+            aria-label="link featured projects"
+            class="featured__link"
+            href="#"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+              />
+            </svg>
+          </a>
+        </div>
+        <p class="featured__description">
+          Cillum voluptate tempor cillum culpa cupidatat labore voluptate
+          ullamco voluptate culpa sunt nulla non. Ad cupidatat dolore quis amet
+          pariatur consectetur ullamco. Officia quis id velit duis cupidatat
+          sunt deserunt do aliquip nulla laboris.
+        </p>
+        <div class="featured__info-container">
+          <div>
+            <h3 class="featured__label">Tech stack</h3>
+            <ul class="featured__tech-stack">
+              <li class="featured__info">TailwindCSS</li>
+              <li class="featured__info">ReactJS</li>
+              <li class="featured__info">React-hook-form</li>
+              <li class="featured__info">NextJS</li>
+              <li class="featured__info">Axios</li>
+              <li class="featured__info">Supabase</li>
+              <li class="featured__info">Stripe</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="featured__label">Project type</h3>
+            <p class="featured__info">Fullstack-Jamstack</p>
+          </div>
+          <div>
+            <h3 class="featured__label">Timeline</h3>
+            <p class="featured__info">December 2022 - present</p>
+          </div>
+        </div>
+        <div class="featured__img-container">
+          <div class="featured__img-wrapper">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/1920x968"
+              data-src="/slayingthedragon.png"
+              alt="Slaying The Dragon hero"
+            />
+          </div>
+          <div class="featured__img-wrapper">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/1920x968"
+              data-src="/courses.png"
+              alt="Slaying The Dragon courses"
+            />
+          </div>
+          <div class="featured__img-wrapper">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/1920x968"
+              data-src="/pricing.png"
+              alt="Slaying The Dragon pricing"
+            />
+          </div>
+          <div class="featured__img-wrapper">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/1920x968"
+              data-src="/features.png"
+              alt="Slaying The Dragon features"
+            />
+          </div>
+          <div class="featured__img-wrapper">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/1920x968"
+              data-src="/faq.png"
+              alt="Slaying The Dragon faqs"
+            />
+          </div>
+          <div class="featured__img-wrapper">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/1920x968"
+              data-src="/blog.png"
+              alt="Slaying The Dragon blog"
+            />
+          </div>
+          <div class="featured__img-wrapper">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/1920x968"
+              data-src="/signin.png"
+              alt="Slaying The Dragon sign-in"
+            />
+          </div>
+          <div class="featured__img-wrapper">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/1920x968"
+              data-src="/app.png"
+              alt="Slaying The Dragon dashboard"
+            />
+          </div>
+        </div>
+      </section>
+      <section class="work container section">
+        <h2 class="work__title">Projects</h2>
+        <p class="work__description">
+          Mollit pariatur tempor nisi dolor non consequat magna cupidatat
+          reprehenderit. Aliquip excepteur ullamco aliquip magna est et commodo
+          deserunt ipsum.
+        </p>
+        <div class="work__container">
+          <!-- Project 1 -->
+          <h3 class="work__project-title">Wax Motif</h3>
+          <div class="work__img-wrapper work__image1">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/900"
+              data-src="/waxmoney.png"
+              alt="Wax Motif website"
+            />
+          </div>
+          <div class="work__project work__content1">
+            <h3 class="work__project-subtitle">Wax Motif</h3>
+            <p class="work__project-description1">
+              Labore magna ut non labore Lorem nisi culpa sint et quis sint.
+              Enim pariatur deserunt do ad exercitation.
+            </p>
+            <p class="work__project-description2">
+              Ea ut non cupidatat consequat sint elit ipsum culpa dolor cillum
+              commodo. Do esse excepteur cillum deserunt duis incididunt. Eu
+              tempor ullamco aliqua consectetur incididunt anim dolor sunt
+              laboris adipisicing cupidatat sint.
+            </p>
+            <a class="btn work__project-btn" href="#">Website</a>
+          </div>
+          <!-- Project 2 -->
+          <h3 class="work__project-title">Draze Force</h3>
+          <div class="work__img-wrapper work__image2">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/900"
+              data-src="/drazeforce.png"
+              alt="Draze Force website"
+            />
+          </div>
+          <div class="work__project work__content2">
+            <h3 class="work__project-subtitle">Draze Force</h3>
+            <p class="work__project-description1">
+              Sunt sint labore officia irure. Dolore pariatur nisi deserunt sunt
+              exercitation excepteur do reprehenderit fugiat Lorem sint ut.
+            </p>
+            <p class="work__project-description2">
+              Mollit ipsum mollit magna occaecat eiusmod sint fugiat est non
+              adipisicing esse fugiat deserunt minim. Enim occaecat velit eu non
+              amet nostrud officia duis.
+            </p>
+            <a class="btn work__project-btn" href="#">Website</a>
+          </div>
+          <!-- Project 3 -->
+          <h3 class="work__project-title">Artren</h3>
+          <div class="work__img-wrapper work__image3">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/900"
+              data-src="/artren.png"
+              alt="Artren website"
+            />
+          </div>
+          <div class="work__project work__content3">
+            <h3 class="work__project-subtitle">Artren</h3>
+            <p class="work__project-description1">
+              Aliquip eu ad est reprehenderit veniam irure exercitation in velit
+              enim ipsum.
+            </p>
+            <p class="work__project-description2">
+              Elit est amet quis incididunt officia velit eiusmod do amet. Sint
+              non qui nulla sit ex cillum non pariatur velit proident ut aliqua
+              fugiat incididunt id minim.
+            </p>
+            <a class="btn work__project-btn" href="#">Website</a>
+          </div>
+          <!-- Project 4 -->
+          <h3 class="work__project-title">Platform Pro</h3>
+          <div class="work__img-wrapper work__image4">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/900"
+              data-src="/platformpro.png"
+              alt="Platform Pro website"
+            />
+          </div>
+          <div class="work__project work__content4">
+            <h3 class="work__project-subtitle">Platform Pro</h3>
+            <p class="work__project-description1">
+              Labore magna ut non labore Lorem nisi culpa sint et quis sint.
+              Enim pariatur deserunt do ad exercitation.
+            </p>
+            <p class="work__project-description2">
+              Ea ut non cupidatat consequat sint elit ipsum culpa dolor cillum
+              commodo. Do esse excepteur cillum deserunt duis incididunt. Eu
+              tempor ullamco aliqua consectetur incididunt anim dolor sunt
+              laboris adipisicing cupidatat sint.
+            </p>
+            <a class="btn work__project-btn" href="#">Website</a>
+          </div>
+          <!-- Project 5 -->
+          <h3 class="work__project-title">Wallys Vegan</h3>
+          <div class="work__img-wrapper work__image5">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/900"
+              data-src="/wallysvegan.png"
+              alt="Wallys Vegan website"
+            />
+          </div>
+          <div class="work__project work__content5">
+            <h3 class="work__project-subtitle">Wallys Vegan</h3>
+            <p class="work__project-description1">
+              Sunt sint labore officia irure. Dolore pariatur nisi deserunt sunt
+              exercitation excepteur do reprehenderit fugiat Lorem sint ut.
+            </p>
+            <p class="work__project-description2">
+              Mollit ipsum mollit magna occaecat eiusmod sint fugiat est non
+              adipisicing esse fugiat deserunt minim. Enim occaecat velit eu non
+              amet nostrud officia duis.
+            </p>
+            <a class="btn work__project-btn" href="#">Website</a>
+          </div>
+          <!-- Project 6 -->
+          <h3 class="work__project-title">Old Portfolio</h3>
+          <div class="work__img-wrapper work__image6">
+            <img
+              class="lazy loading"
+              src="https://via.placeholder.com/900"
+              data-src="/portfolio.png"
+              alt="Portfolio website"
+            />
+          </div>
+          <div class="work__project work__content6">
+            <h3 class="work__project-subtitle">Old Portfolio</h3>
+            <p class="work__project-description1">
+              Aliquip eu ad est reprehenderit veniam irure exercitation in velit
+              enim ipsum.
+            </p>
+            <p class="work__project-description2">
+              Elit est amet quis incididunt officia velit eiusmod do amet. Sint
+              non qui nulla sit ex cillum non pariatur velit proident ut aliqua
+              fugiat incididunt id minim.
+            </p>
+            <a class="btn work__project-btn" href="#">Website</a>
+          </div>
+        </div>
+      </section>
+      <section id="contact" class="contact container section">
+        <h2 class="contact__title">Get In Contact</h2>
+        <p class="contact__description">
+          Whether you are starting a project, have business inquiries or just
+          want to say hi, my inbox is always open so feel free to reach out and
+          I will get back to you as soon as possible.
+        </p>
+        <a
+          class="contact__btn btn"
+          href="mailto:slayingthedragon.io@gmail.com"
+          target="_blank"
+          >React Out</a
+        >
+      </section>
+    </main>
+    <!-- <footer class="footer container section"> -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="footer-col">
+            <h4>company</h4>
+            <ul>
+              <li><a href="#">about us</a></li>
+              <li><a href="#">our services</a></li>
+              <li><a href="#">privacy policy</a></li>
+              <li><a href="#">affiliate program</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>get help</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">shipping</a></li>
+              <li><a href="#">returns</a></li>
+              <li><a href="#">order status</a></li>
+              <li><a href="#">payment options</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>online shop</h4>
+            <ul>
+              <li><a href="#">watch</a></li>
+              <li><a href="#">bag</a></li>
+              <li><a href="#">shoes</a></li>
+              <li><a href="#">dress</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>follow us</h4>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script  src="{% static 'javascript/darkmode.js' %}"></script>
+    <script  src="{% static 'javascript/lazyloading.js' %}"></script>
+    <script  src="{% static 'javascript/mobilenav.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+.follow__count{
+    display: flex;
+    gap: 2rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.active-link {
+  color: var(--clr-dark);
+  background: var(--clr-light);
+ }
+
+.unactive-link{
+  color: var(--clr-light);
+  background: var(--clr-glass);
+} 
+
+.follow__button{
+    display: flex;
+    gap: 1rem;
+}
+
+
+
+/* graph */
+
+.graph-container .bar-chart {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .graph-container .bar {
+    display: flex;
+    flex-direction: column-reverse; /* Reverse the order of the elements */
+    align-items: center;
+  }
+  
+  .graph-container .bar-label {
+    margin-top: 5px;
+  }
+  
+  .graph-container .bar-fill {
+    position: relative;
+    background-color: #007bff; /* Adjust bar color */
+    width: 100px;
+  }
+  
+
+/* xs */
+@media (max-width: 475px) {
+    .follow__count h3{
+        font-size: 12px;
+    }
+}
+
+/* sm */
+/* @media (min-width: 640px) {} */
+
+/* md */
+/* @media (min-width: 768px) {} */
+
+/* lg */
+/* @media (min-width: 1024px) {} */
+
+/* xl */
+/* @media (min-width: 1280px) {} */
+
+/* 2xl */
+/* @media (min-width: 1536px) {} */

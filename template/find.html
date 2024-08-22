@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Tag | {% endblock %}
+
+{% block content %}
+<style>
+  .main-hero{
+      min-height: 100vh;
+
+  }
+</style>
+<section id="featured" class="featured container section">
+    <!-- <h3 class="featured__subtitle">Featured project</h3> -->
+    <br>
+    <div class="featured__wrapper">
+        <h2 class="featured__title">Top Results</h2>
+    </div>
+    {% if userresults %}
+      <div class="profile-grid">
+        {% for i in userresults %}
+          <a href="{% url 'profilee' i.username %}" style="text-decoration: none; color: var(--clr-light);">
+            <div class="profile-card">
+              <img class="profile-img" src="{{ i.profile.image }}" alt="Profile Picture">
+                <div class="profile-info">
+                  <div class="fullname">{{ i.profile.full_name }}</div>
+                  <div class="username">@{{ i.username }}</div>
+                  <div class="bio">{{ i.profile.bio }}</div>
+                </div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if tagresults %}
+      <div class="tag-grid">
+        {% for i in tagresults %}
+        <a href="{{i.get_absolute_url}}" style="text-decoration: none;">
+          <div class="tag-card">
+              <div class="tag-backdrop"></div>
+              <div class="tag-info">
+                <div class="tag-name">{{ i.title }}</div>
+              </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+</section>
+{% endblock %}

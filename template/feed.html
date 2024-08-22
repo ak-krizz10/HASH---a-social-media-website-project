@@ -1,0 +1,375 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome | {% endblock %}
+
+{% block content %}
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+      // Function to handle starting the video when it comes into view
+      function handleAutoplay(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Video is in view, start playing
+          entry.target.play();
+        } else {
+          // Video is out of view, pause it
+          entry.target.pause();
+        }
+      });
+    }
+
+    // Set up Intersection Observer for autoplay
+    const autoplayVideos = document.querySelectorAll('.autoplay-video');
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5, // You can adjust this value based on your preference
+    };
+
+    const observer = new IntersectionObserver(handleAutoplay, observerOptions);
+    autoplayVideos.forEach(video => observer.observe(video));
+</script>
+<script src="{% static 'javascript/lazyloading.js' %}"></script>
+<br>
+{% if post_items %}
+<div class="profile-links">
+  <a href="{% url 'feed' %}" class="active-link">Posts</a>
+  <a href="{% url 'tweetfeed' %}" class="unactive-link">Thoughts</a>
+</div>
+{% for post in post_items %}
+  <section class="feed-hero container">
+    <div class="post-container">
+      <div class="user-profile">
+        {% for pro in profile %}
+        {% if pro.user == post.user %}
+        <a href="{% url 'profilee' post.user.username %}"><img src="/{{ pro.image }}" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;" alt="Profile picture" /></a>
+        {% endif %}
+        {% endfor %}
+        <div class="post-profile">
+          <p><strong><a style="text-decoration: none; color: var(--clr-light);" href="{% url 'profilee' post.user.username %}">{{ post.user.username }}</a></strong></p>
+        </div>
+      </div>
+      <a href="{{ post.get_absolute_url }}">
+        {% if post.picture %}
+          <img src="{{ post.picture }}" class="post-img">
+        {% else %}
+          <video class="post-img" src="{{ post.video }}" controls class="post-img"></video>
+        {% endif %}
+      </a>
+      <p class="post-text">{{ post.caption }}</p>
+      <span class="post-tags">{% for tag in post.tag.all %}<a style="text-decoration: none; color: var(--clr-slate400);" href="{{ tag.get_absolute_url }}">{{ tag }} </a>{% endfor %}</span>
+      <div class="post-row">
+        <div class="activity-icons">
+          <span>{{ post.posted|date }}</span>
+          <div class="interactions">
+            <div>
+              <!-- Add the SVG content for the heart icon here -->
+              <!-- You can copy the content of your heart.svg file and paste it here -->
+              {% if post.user_has_liked %}
+                <svg id="heart{{ post.id }}" class="heart-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                  <path fill=var(--clr-rose) d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z" />
+                </svg>
+              {% else %}
+                <svg  id="heart{{ post.id }}" class="heart-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                  <path fill=var(--clr-light) d="m480-146.925-44.153-39.691q-99.461-90.231-164.5-155.077-65.038-64.846-103.076-115.423-38.039-50.577-53.154-92.269-15.116-41.692-15.116-84.615 0-85.153 57.423-142.576Q214.847-833.999 300-833.999q52.385 0 99 24.501 46.615 24.5 81 70.269 34.385-45.769 81-70.269 46.615-24.501 99-24.501 85.153 0 142.576 57.423Q859.999-719.153 859.999-634q0 42.923-15.116 84.615-15.115 41.692-53.154 92.269-38.038 50.577-102.884 115.423T524.153-186.616L480-146.925ZM480-228q96-86.385 158-148.077 62-61.692 98-107.192 36-45.5 50-80.808 14-35.308 14-69.923 0-60-40-100t-100-40q-47.385 0-87.577 26.885-40.192 26.884-63.654 74.808h-57.538q-23.846-48.308-63.846-75.001Q347.385-774 300-774q-59.615 0-99.808 40Q160-694 160-634q0 34.615 14 69.923t50 80.808q36 45.5 98 107T480-228Zm0-273Z" />
+                </svg>
+              {% endif %}
+              <div class="like-count-container">
+                <p class="num-of-likes" id="num{{ post.id }}">{{ post.likes.count }}</p>
+              </div>
+            </div>
+            <div class="comments" onclick="toggleCommentSection('{{ post.id }}')">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path fill=var(--clr-light) d="M250.001-410.001h299.998v-59.998H250.001v59.998Zm0-120h459.998v-59.998H250.001v59.998Zm0-120h459.998v-59.998H250.001v59.998Zm-150
+                  531.537v-669.227q0-30.308 21-51.308t51.308-21h615.382q30.308 0 51.308 21t21 51.308v455.382q0 30.308-21 51.308t-51.308 21H241.539L100.001-118.464Zm116-201.536h571.69q4.616
+                  0 8.463-3.846 3.846-3.847 3.846-8.463v-455.382q0-4.616-3.846-8.463-3.847-3.846-8.463-3.846H172.309q-4.616 0-8.463 3.846-3.846 3.847-3.846 8.463v523.076L216.001-320ZM160-320v-480V-320Z" />
+              </svg>
+              <div class="comment-count-container">
+                <p class="num-of-comments" id="comment-count-post-{{post.id}}">{{ post.comments.count }}</p>
+              </div>
+            </div>
+            <div class="saved">
+              <a href="{% url 'saved' post.id %}">
+                {% if post in user.profile.saved.all %}
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path fill=var(--clr-light) d="M150.002-70.002v-597.689q0-30.308 21-51.308t51.307-21h375.383q30.308 0 51.307 21 21 21 21 51.308v597.689L410.001-181.54
+                      150.002-70.002Zm599.997-120V-807.69q0-4.616-3.846-8.462-3.847-3.847-8.462-3.847H270.002v-59.998h467.689q30.307 0 51.307 21 21 21
+                      21 51.307v617.688h-59.999Z"/>
+                  </svg>
+                {% else %}
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path fill=var(--clr-light) d="M150.002-70.002v-597.689q0-30.308 21-51.308t51.307-21h375.383q30.308 0 51.307 21 21 21 21 
+                      51.308v597.689L410.001-181.54 150.002-70.002ZM210.001-162l200-86 200 86v-505.691q0-4.616-3.847-8.463-3.846-3.846-8.462-3.846H222.309q-4.615
+                      0-8.462 3.846-3.846 3.847-3.846 8.463V-162Zm539.998-28.002V-807.69q0-4.616-3.846-8.462-3.847-3.847-8.462-3.847H270.002v-59.998h467.689q30.307
+                      0 51.307 21 21 21 21 51.307v617.688h-59.999ZM210.001-680H610.001h-400Z"/>
+                  </svg>
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Comment section -->
+      <div class="comment-section hidden" id="comment-section-{{ post.id }}">
+        <!-- Display existing comments -->
+        {% for comment in post.comments.all %}
+        <div class="comment">
+          {% if comment.user.profile_picture %}
+            <img src="{{ comment.user.profile_picture }}" alt="Profile picture" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;">
+          {% endif %}
+          <div>
+            <span>{{ comment.user.username }} {{ comment.text }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      
+        <!-- Form to add a new comment -->
+        <form class="comment-form" method="post" onsubmit="return addComment(event, '{{ post.id }}');">
+          {% csrf_token %}
+          {{ comment_form.as_p }}
+          <button type="submit" class="header__resume btn">Comment</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <script>
+    // Function to toggle the visibility of the comment section
+    function toggleCommentSection(postId) {
+      const commentSection = document.getElementById(`comment-section-${postId}`);
+      commentSection.classList.toggle('hidden');
+
+      // If the comment section is revealed, fetch comments via AJAX
+      if (!commentSection.classList.contains('hidden')) {
+        fetchComments(postId);
+      }
+    }
+
+    // Function to handle AJAX request and update comments
+    function fetchComments(postId) {
+      fetch(`/fetch_post_comments/${postId}/`)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Received data:', data);
+
+          // Check the structure of the received data
+          if (data.comments && Array.isArray(data.comments)) {
+            // Update the UI with the received comments
+            const commentsContainer = document.getElementById(`comment-section-${postId}`);
+            commentsContainer.innerHTML = '';  // Clear existing comments
+
+            data.comments.forEach(comment => {
+              const newComment = document.createElement('div');
+              newComment.classList.add('comment');
+
+              // Display the profile picture if available
+              if (comment.user && comment.user.profile_picture) {
+                const profilePicture = document.createElement('img');
+                profilePicture.src = comment.user.profile_picture;
+                profilePicture.alt = 'Profile picture';
+                newComment.appendChild(profilePicture);
+              }
+
+              // Assuming 'text' is the property containing the comment text
+              const commentText = `<strong>${comment.user.username}</strong> <br> ${comment.text}`;
+
+              // Create a new span for comment text
+              const commentSpan = document.createElement('span');
+              commentSpan.innerHTML = commentText;
+
+              // Append the span to the comment div
+              newComment.appendChild(commentSpan);
+
+              // Append the new comment to the comments container
+              commentsContainer.appendChild(newComment);
+            });
+
+            // Add the comment form back to the container
+            const commentForm = document.createElement('form');
+            commentForm.method = 'post';
+            commentForm.className = 'comment-form'
+            commentForm.onsubmit = function(event) {
+              return addComment(event, postId);
+            };
+
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrfmiddlewaretoken';
+            csrfInput.value = '{{ csrf_token }}';
+
+            const textInput = document.createElement('textarea');
+            textInput.name = 'text';
+            textInput.placeholder = 'Add a comment...';
+            textInput.className = 'commentInput';
+
+            const submitButton = document.createElement('button');
+            submitButton.type = 'submit';
+            submitButton.textContent = 'Comment';
+            submitButton.className = 'header__resume btn commentButton';
+
+            commentForm.appendChild(csrfInput);
+            commentForm.appendChild(textInput);
+            commentForm.appendChild(submitButton);
+
+            commentsContainer.appendChild(commentForm);
+          } else {
+            console.error('Error: Invalid data format');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+      // Function to handle form submission
+      function addComment(event, postId) {
+      event.preventDefault();
+      const text = event.target.elements.text.value;
+
+      // Use AJAX to submit the comment form
+      fetch(`/add_comment/${postId}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: `text=${encodeURIComponent(text)}`,
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Comment added successfully
+          console.log('Success:', data.message);
+
+          // Clear the comment textarea
+          event.target.elements.text.value = '';
+
+          // Fetch and update comments after successful comment submission
+          fetchComments(postId);
+
+          // Fetch and update the comment count after successful comment submission
+          updateCommentCount(postId);
+        } else {
+          // Handle errors
+          console.error('Error:', data.message, data.errors);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+    // Function to handle AJAX request and update comment count
+    function updateCommentCount(postId) {
+      fetch(`/fetch_post_comments/${postId}/`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.comments && Array.isArray(data.comments)) {
+            // Assuming your comment count element has an id like 'comment-count-post-1'
+            const commentCountElement = document.getElementById(`comment-count-post-${postId}`);
+
+            // Update the comment count based on the received data
+            commentCountElement.textContent = `${data.comments.length}`;
+          } else {
+            console.error('Error: Invalid data format for comment count');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    //Like with Ajax
+    document.getElementById("heart{{ post.id }}").addEventListener("click", function() {
+      let svg = document.getElementById("heart{{ post.id }}");
+      let likeCountContainer = document.getElementById("num{{ post.id }}");
+      let post_id = "{{ post.id }}";
+
+      let url = "{% url 'like' %}";
+      const data = { id: post_id };
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+
+        // Set the inner HTML of the SVG based on the updated "user_has_liked" information
+        if (data["check"]) {
+          svg.innerHTML = `<path fill=var(--clr-rose) d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z"/>`;
+          svg.classList.add('like-animation'); // Add the animation class
+        } else {
+          svg.innerHTML = `<path fill=var(--clr-light) d="m480-146.925-44.153-39.691q-99.461-90.231-164.5-155.077-65.038-64.846-103.076-115.423-38.039-50.577-53.154-92.269-15.116-41.692-15.116-84.615 0-85.153 57.423-142.576Q214.847-833.999 300-833.999q52.385 0 99 24.501 46.615 24.5 81 70.269 34.385-45.769 81-70.269 46.615-24.501 99-24.501 85.153 0 142.576 57.423Q859.999-719.153 859.999-634q0 42.923-15.116 84.615-15.115 41.692-53.154 92.269-38.038 50.577-102.884 115.423T524.153-186.616L480-146.925ZM480-228q96-86.385 158-148.077 62-61.692 98-107.192 36-45.5 50-80.808 14-35.308 14-69.923 0-60-40-100t-100-40q-47.385 0-87.577 26.885-40.192 26.884-63.654 74.808h-57.538q-23.846-48.308-63.846-75.001Q347.385-774 300-774q-59.615 0-99.808 40Q160-694 160-634q0 34.615 14 69.923t50 80.808q36 45.5 98 107T480-228Zm0-273Z"/>`;
+          svg.classList.remove('like-animation'); // Remove the animation class
+
+          // Add scale-down animation when unliking
+          svg.classList.add('scale-down-animation');
+          // Remove the scale-down animation class after a short delay to allow the animation to complete
+          setTimeout(() => {
+            svg.classList.remove('scale-down-animation');
+          }, 300);
+        }
+        // Update the inner text of the like count container
+        likeCountContainer.innerText = data["num_of_likes"];
+      });
+    });
+    function savePost(postId) {
+        // Send a POST request to the save_post URL
+        fetch(`/path/to/your/saved/${postId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // Ensure CSRF token is included
+            },
+            body: JSON.stringify({ post_id: postId })  // Send the post ID in the request body
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check the save_status returned in the response
+            if (data.save_status === 1) {
+                // Post was saved, update UI accordingly (e.g., change button color)
+                // You can add your UI update logic here
+                console.log('Post saved successfully!');
+            } else {
+                // Post was unsaved, update UI accordingly
+                console.log('Post unsaved successfully!');
+            }
+        })
+        .catch(error => {
+            console.error('Error saving/un-saving post:', error);
+        });
+    }
+  </script>
+{% endfor %}
+{% else %}
+  <section id="contact" class="contact container section">
+      <!-- <h2 class="contact__title">Feed</h2> -->
+      <p class="contact__description">
+        Here, you'll discover a world of endless possibilities, connections, and inspiration.
+        Dive into a space where voices unite, ideas flourish, and stories unfold.
+        Your contributions, whether big or small, shape the essence of our community.
+        The adventure awaits !
+      </p>
+      <a
+      class="contact__btn btn"
+      href="{% url 'search' %}"
+      >Explore</a
+      >
+  </section>
+{% endif %}
+<br>
+<br>
+{% endblock %}

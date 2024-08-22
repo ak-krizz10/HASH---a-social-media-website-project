@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Welcome | {% endblock %}
+
+{% block content %}
+<section>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/pop.css'%}" />
+    <div class="header__wrapper">
+      <header></header>
+      <div class="cols__container">
+        <div class="left__col">
+          <div class="img__container">
+            <img src="https://pbs.twimg.com/profile_images/1728837013023895552/nCHrdjlh_400x400.jpg" alt="Andrew tate" />
+            <span></span>
+          </div>
+          <h2>Andrew Tate </h2>
+          <p>entreprenur</p>
+          <p>university.com</p>
+
+          <ul class="about">
+            <li><span>4,073</span>Followers</li>
+            <li><span>322</span>Following</li>
+            <li><span>200,543</span>visits</li>
+          </ul>
+
+          <div class="content">
+            <p>
+                Emory Andrew Tate III is an American-British social media personality, businessman, and former professional kickboxer. Tate began practicing kickboxing in 2005 and had success in the ISKA league, winning his first championship in 2009, later becoming a four-time ISKA world champion.
+            </p>
+
+            <ul>
+              <li><i class="fab fa-twitter"></i></li>
+              <i class="fab fa-pinterest"></i>
+              <i class="fab fa-facebook"></i>
+              <i class="fab fa-dribbble"></i>
+            </ul>
+          </div>
+        </div>
+        <div class="right__col">
+          <nav>
+            <ul>
+              <li><a href="#">Posts</a></li>
+              <li><a href="#">Hashes</a></li>
+              <li><a href="#">Tags</a></li>
+              <li><a href="#">Activities</a></li>
+            </ul>
+            <button class="hero__btn btn">Follow</button>
+          </nav>
+
+          <div class="photos">
+            <img src="https://images.moneycontrol.com/static-mcnews/2022/08/Andrew-tate-770x435.jpg?impolicy=website&width=1600&height=900" alt="Photo" />
+            <img src="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2023/03/28/16799551917085.jpg" alt="Photo" />
+            <img src="https://premium.vgc.no/v2/images/5d762976-9e3b-4a8e-85ea-bf7f16289d40?fit=crop&format=auto&h=693&w=1070&s=c3bd9e9a99d0fdf190f0027b9cb794167cfe6838" alt="Photo" />
+            <img src="https://metro.co.uk/wp-content/uploads/2022/08/SEI_119347020-adaf-e1660950595968.jpg?quality=90&strip=all" alt="Photo" />
+            <img src="https://fasterliving.com/wp-content/uploads/2022/07/5M2A5368-1160x774.jpg" alt="Photo" />
+            <img src="https://d16f573ilcot6q.cloudfront.net/wp-content/uploads/2023/03/Screenshot-2023-03-20-233254.png" alt="Photo" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+</section>
+{% endblock %}

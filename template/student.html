@@ -1,0 +1,7 @@
+<h1>All Students</h1>
+<p>{{s}}</p>
+{% for i in s %}
+
+<a href="{% url 'det' i.id %}"><p>{{i.name}}</p></a>
+
+{% endfor %}

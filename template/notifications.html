@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Notifications | {% endblock %}
+
+{% block content %}
+{% if noti %}
+    {% for not in noti %}
+    <section class="feed-hero container">
+        <div class="noti-container">
+            <div class="noti-profile">
+                {% for pro in profile %}
+                    {% if pro.user == not.sender %}
+                    <a href="{% url 'profilee' pro.user.username %}">
+                        <img class="noti-profile-img" src="/{{ pro.image }}" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;" alt="Profile picture" />
+                    </a>
+                    {% endif %}
+                {% endfor %}
+                <div class="post-profile">
+                    <div class="noti-comment-container">
+                        <p class=""><strong>{{ not.sender }} {{ not.body }}</strong></p>
+                        {% if not.comment %}
+                            <p class="noti-comment"><strong>{{ not.comment.text }}</strong></p>
+                        {% endif %}
+                    </div>
+                    <span style="font-size: small;">{{ not.created }}</span>
+                </div>
+                {% if not.post.picture %}
+                    <a href="{% url 'post-details' not.post.user.username not.post.slug %}">
+                        <img class="noti-post-img" src="/{{ not.post.picture }}" alt="Profile picture" />
+                    </a>
+                {% else %}
+                    <img class="noti-profile-img" src="/{{ user.profile.image }}" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;" alt="Profile picture" />
+                {% endif %}
+        </div>
+        </div>
+    </section>
+    {% endfor %}
+{% else %}
+    <section id="contact" class="contact container section">
+        <h2 class="contact__title">No Notifications</h2>
+        <p class="contact__description">
+        You don't seem to have any notifications yet...
+        </p>
+    </section>
+{% endif %}
+
+<br>
+<br>
+{% endblock %}

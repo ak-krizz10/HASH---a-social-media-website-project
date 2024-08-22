@@ -1,0 +1,299 @@
+{% load static %}
+{% if user.is_authenticated %}
+  <header class="header navcontainer">
+    <h1 class="featured__title"><a style="text-decoration: none; color: var(--clr-light); font-family: 'Righteous', Regular;" href="{% url 'feed' %}">#Hash</a></h1>
+    <nav class="nav-title">
+      <ul class="header__menu">
+        <li>
+          <a class="header__link" href="{% url 'feed' %}">Home</a>
+        </li>
+        <li>
+          <a class="header__link" href="{% url 'profilee' request.user %}">Profile</a>
+        </li>
+        <!-- <li>
+          <a class="header__link" href="#about">Explore</a>
+        </li> -->
+        <li class="dropdown">
+          <a class="header__link dropbtn" onclick="dropdownmenu()" href="#">Upload</a>
+          <ul class="dropdown-content" id="myDropdown">
+            <li><a href="{% url 'newpost' %}">Post</a></li>
+            <li><a href="{% url 'newtweet' %}">Thought</a></li>
+          </ul>
+        </li>
+        <li>
+          <a class="header__link" href="{% url 'chats' %}">Directs</a>
+        </li>
+      </ul>
+      <ul class="header__menu">
+        <li>
+          <form action="{% url 'search' %}" method="get">
+            <div class="header__search">
+              <div class="header__searchbox">
+                <input name="search" class="search" type="text" placeholder="Find ...">
+              </div>
+              <div class="header__searchicon">
+                <button type="submit">
+                  <svg xmlns="http://www.w3.org/2000/svg" 
+                    height="24" 
+                    viewBox="0 -960 960 960"
+                    width="24"
+                    fill=var(--clr-light)
+                  >
+                    <path 
+                      d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </form>
+        </li>
+        <li class="header__line"></li>
+        <li>
+          <button
+            aria-label="theme-toggle btn"
+            id="theme-toggle"
+            class="header__sun"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+              />
+            </svg>
+          </button>
+        </li>
+        <li class="header__me">
+          <button class="header__me-btn">
+            <img src="/{{ user.profile.image }}" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;"  alt="Profile picture" />       
+            <ul class="header__me-menu">
+              <li><a href="{% url 'profilee' request.user %}">My Profile</a></li>
+              <li id="theme-toggle"><a href="#">Darkmode</a></li>
+              <li><a href="{% url 'password_change' %}">Change Password</a></li>
+              <li><a href="{% url 'notifications' %}">Notifications</a></li>
+              <li><a href="{% url 'screentime' request.user.username %}">Screentime</a></li>
+              <li><a href="{% url 'signout'  %}">Signout</a></li>
+            </ul>
+          </button>
+        </li>
+      </ul>
+      <button aria-label="mobile nav button" class="header__bars">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+    </nav>
+    <!-- <span class="header__timer">00:00</span> -->
+
+  </header>
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+      <nav>
+        <ul class="mobile-nav__menu">
+          <li>
+            <form action="{% url 'search' %}" method="get">
+              <br>
+              <div class="header__search">
+                <div class="header__searchbox">
+                  <input name="search" class="search" type="text" placeholder="Find ...">
+                </div>
+                <div class="header__searchicon" style="margin-left: 0;">
+                  <button type="submit" style="margin-left: -35px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                      height="24" 
+                      viewBox="0 -960 960 960"
+                      width="24"
+                      fill=var(--clr-light)
+                    >
+                      <path 
+                        d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </li>
+          <li>
+            <a href="{% url 'profilee' request.user %}">My Profile</a>
+          </li>
+          <li>
+            <a class="header__link" href="{% url 'chats' %}">Directs</a>
+          </li>
+          <li>
+            <a href="{% url 'newpost' %}">Upload Post</a>
+          </li>
+          <li>
+            <a href="{% url 'newtweet' %}">Upload Thought</a>
+          </li>
+          <li>
+            <a href="{% url 'notifications' %}">Notifications</a>
+          </li>
+          <li>
+            <a href="{% url 'signout'  %}">Signout</a>
+          </li>
+          <li class="mobile-nav__link-line"></li>
+          <li>
+            <button
+              aria-label="theme-toggle btn"
+              id="theme-toggle"
+              class="mobile-nav__sun"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+                />
+              </svg>
+            </button>
+          </li>
+          <!-- <li>
+            <a class="mobile-nav__btn btn" href="{% url 'signout' %}">Sign out</a>
+          </li> -->
+        </ul>
+      </nav>
+    </div>
+    <script>
+      function dropdownmenu() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
+      
+      // Close the dropdown if the user clicks outside of it
+      window.onclick = function(e) {
+        if (!e.target.matches('.dropbtn')) {
+        var myDropdown = document.getElementById("myDropdown");
+          if (myDropdown.classList.contains('show')) {
+            myDropdown.classList.remove('show');
+          }
+        }
+      }
+    </script>
+{% else %}
+<header class="header navcontainer">
+  <h1 class="featured__title"><a style="text-decoration: none; color: var(--clr-light); font-family: 'Righteous', Regular;" href="{% url 'feed' %}">#Hash</a></h1>
+  <nav class="nav-title">
+    <ul class="header__menu">
+      <li>
+        <a class="header__link" href="{% url 'frontpage' %}/#About">About Us</a>
+      </li>
+      <li>
+        <a class="header__link" href="#featured">Features</a>
+      </li>
+      <li>
+        <a class="header__link" href="{% url 'signin' %}">Login</a>
+      </li>
+      <li class="header__line"></li>
+      <li>
+        <button
+          aria-label="theme-toggle btn"
+          id="theme-toggle"
+          class="header__sun"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+            />
+          </svg>
+        </button>
+      </li>
+      <li>
+        <a class="header__resume btn" href="{% url 'signup' %}">Join Now</a>
+      </li>
+    </ul>
+    <button aria-label="mobile nav button" class="header__bars">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </nav>
+  <!-- <span class="header__timer">00:00</span> -->
+
+</header>
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav">
+    <nav>
+      <ul class="mobile-nav__menu">
+        <li>
+          <form action="{% url 'search' %}" method="get">
+            <div class="header__search">
+              <div class="header__searchbox">
+                <input name="search" class="search" type="text" placeholder="Find ...">
+              </div>
+              <div class="header__searchicon">
+                <button type="submit" style="margin-left: -55px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" 
+                    height="24" 
+                    viewBox="0 -960 960 960"
+                    width="24"
+                    fill=var(--clr-light)
+                  >
+                    <path 
+                      d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </form>
+        </li>
+        <li>
+          <a href="{% url 'profilee' request.user %}">My Profile</a>
+        </li>
+        <li>
+          <a href="{% url 'notifications' %}">Notifications</a>
+        </li>
+        <li>
+          <a href="{% url 'signout'  %}">Signout</a>
+        </li>
+        <li class="mobile-nav__link-line"></li>
+        <li>
+          <button
+            aria-label="theme-toggle btn"
+            id="theme-toggle"
+            class="mobile-nav__sun"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+              />
+            </svg>
+          </button>
+        </li>
+        <!-- <li>
+          <a class="mobile-nav__btn btn" href="{% url 'signout' %}">Sign out</a>
+        </li> -->
+      </ul>
+    </nav>
+  </div>
+{% endif %}
+  <!-- End of Mobile Navigation -->

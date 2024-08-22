@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Welcome | {% endblock %}
+
+{% block content %}
+<section class="hero container">
+  <div class="post-container">
+    <div class="user-profile">
+      <img src="{% static 'images/dpplaceholder.png'%}" alt="">
+        <div class="post-profile">
+          <p>John Nicholson</p>
+          <span>June 24 2023, 1:40 pm</span>
+        </div>
+    </div>
+    "{% url 'post-details' post.id %}"
+    {% url 'saved' post.id %}
+    <img src="{% static 'images/rennsport.jpg'%}" class="post-img">
+    <p class="post-text">The 911 GT3 R rennsport was designed to be enjoyed, not to meet racing series'
+      regulatory frameworks.* It boasts a sensationally low target power-to-weight ratio
+      of 1,240 kg to 456 kW (620 hp) - that's a remarkable 2 kg per horsepower. This places
+      it beyond the homologation restrictions encountered in racing series, so anyone who
+      gets to drive it can fully concentrate on its pure performance, aided by its 
+      heritage-inspired retro spoiler, which draws on the legacy of the vehicle's legendary
+      predecessors.
+    </p>
+    <div class="post-row">
+      <div class="activity-icons">
+        <div><img id="heart"src="{% static 'images/heart.svg'%}" alt="">120 m</div>
+        <div><img src="{% static 'images/chat.svg'%}" alt="">45</div>
+        <div><img src="{% static 'images/save.svg'%}" alt="">20</div>
+      </div>
+    </div>
+  </div>
+
+    <div class="post-container">
+      <div class="user-profile">
+        <img src="{% static 'images/dpplaceholder.png'%}" alt="">
+        <div class="post-profile">
+          <p>John Nicholson</p>
+          <span>June 24 2023, 1:40 pm</span>
+        </div>
+      </div>
+      <img src="{% static 'images/rennsport2.jpg'%}" class="post-img">
+      <p class="post-text">At 9,400 RPM the GT3 R rennsport's exclusive and unsilenced rennsport
+        exhaust system with a centrally mounted double tailpipe, emits an unmistakable roar unheard
+        from any other 911. A mesmerizing sound that is music to the ears of its fans.</p>
+      <div class="post-row">
+        <div class="activity-icons">
+          <div><img id="heart2" src="{% static 'images/heart.svg'%}" alt="">540 m</div>
+          <div><img src="{% static 'images/chat.svg'%}" alt="">35</div>
+          <div><img src="{% static 'images/save.svg'%}" alt="">20</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="post-container">
+      <div class="user-profile">
+        <img src="{% static 'images/dpplaceholder.png'%}" alt="">
+        <div class="post-profile">
+          <p>John Nicholson</p>
+          <span>June 24 2023, 1:40 pm</span>
+        </div>
+      </div>
+      <img src="{% static 'images/rennsport3.webp'%}" class="post-img">
+      <p class="post-text">The 911 GT3 R rennsport is built for those who can truly appreciate its legacy.
+        Limited to just 77 units, it will be a rare sight on the racetrack - and every single one will be 
+        unique. Unlike other limited-edition vehicles, the 911 GT3 R rennsport offers a palette of customisation
+        options. Choose, for example, from seven distinct colours, opt for one of the three exclusive paint designs
+        or go with the most flawless colour Rennsport has to offer: pure carbon.</p>
+      <div class="post-row">
+        <div class="activity-icons">
+          <div><img id="heart3" src="{% static 'images/heart.svg'%}" alt="">620 m</div>
+          <div><img src="{% static 'images/chat.svg'%}" alt="">435</div>
+          <div><img src="{% static 'images/save.svg'%}" alt="">40</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="post-container">
+      <div class="user-profile">
+        <img src="{% static 'images/dpplaceholder.png'%}" alt="">
+        <div class="post-profile">
+          <p>John Nicholson</p>
+          <span>June 24 2023, 1:40 pm</span>
+        </div>
+      </div>
+      <img src="{% static 'images/rennsport4.jpg'%}" class="post-img">
+      <p class="post-text">Get ready for its custom-made transmission, its unrestricted rennsport engine developed based
+        on the 911 GT3 R engine with higher compression, rennsport-specific camshafts, and pistons, an exclusive and unsilenced
+        rennsport exhaust system, exclusive BBS wheels and Michelin tyres that were designed and built specifically for this vehicle,
+        the exclusive performance upshift function that optimises the revs per minute during upshifting, and so much more.</p>
+      <div class="post-row">
+        <div class="activity-icons">
+          <div><img id="heart4" src="{% static 'images/heart.svg'%}" alt="">343 m</div>
+          <div><img src="{% static 'images/chat.svg'%}" alt="">42</div>
+          <div><img src="{% static 'images/save.svg'%}" alt="">21</div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn">Load More</button>
+    <br>
+    <br>
+    <br>
+</section>
+{% endblock %}
+
+{% block footer %}
+<br>
+<br>
+<footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="footer-col">
+          <h4>company</h4>
+          <ul>
+            <li><a href="#">about us</a></li>
+            <li><a href="#">our services</a></li>
+            <li><a href="#">privacy policy</a></li>
+            <li><a href="#">affiliate program</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>get help</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">shipping</a></li>
+            <li><a href="#">returns</a></li>
+            <li><a href="#">order status</a></li>
+            <li><a href="#">payment options</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>online shop</h4>
+          <ul>
+            <li><a href="#">watch</a></li>
+            <li><a href="#">bag</a></li>
+            <li><a href="#">shoes</a></li>
+            <li><a href="#">dress</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>follow us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+</footer>
+<script>
+    let heart = document.getElementById("heart")
+    let like = 0
+    heart.onclick = function(){
+      if(like == 0){
+        like = 1;
+        heart.src="{%static 'images/heartfilled.svg'%}";
+      }
+      else{
+        like = 0
+        heart.src="{%static 'images/heart.svg'%}";
+      }
+    }
+    let heart2 = document.getElementById("heart2")
+    let like2 = 0
+    heart2.onclick = function(){
+      if(like2 == 0){
+        like2 = 1;
+        heart2.src="{%static 'images/heartfilled.svg'%}";
+      }
+      else{
+        like2 = 0
+        heart2.src="{%static 'images/heart.svg'%}";
+      }
+    }
+    let heart3 = document.getElementById("heart3")
+    let like3 = 0
+    heart3.onclick = function(){
+      if(like3 == 0){
+        like3 = 1;
+        heart3.src="{%static 'images/heartfilled.svg'%}";
+      }
+      else{
+        like3 = 0
+        heart3.src="{%static 'images/heart.svg'%}";
+      }
+    }
+    let heart4 = document.getElementById("heart4")
+    let like4 = 0
+    heart4.onclick = function(){
+      if(like4 == 0){
+        like4 = 1;
+        heart4.src="{%static 'images/heartfilled.svg'%}";
+      }
+      else{
+        like4 = 0
+        heart4.src="{%static 'images/heart.svg'%}";
+      }
+    }
+</script>
+{% endblock %}
+
+
+   

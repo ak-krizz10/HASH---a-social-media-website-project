@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Screen Time| {% endblock %}
+
+{% block content %}
+<section class="hero container">
+  <div class="graph-container">
+    <div class="bar-chart">
+      <!-- Loop through screen time data to generate bars -->
+      {% for day, time_spent in bar_data.items %}
+      <div class="bar">
+        {{ day }}
+        <div class="bar-fill" style='height: calc( {{ time_spent }} / 12 * 400px);'></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

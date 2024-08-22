@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Reset Password | {% endblock %}
+
+{% block content %}
+<section class="hero container">
+    <br>
+    <!-- <h2 class="hero__subtitle">Hi, I'm Dev 👋</h2> -->
+    <!-- <h1 class="hero__title">
+      # Hash
+    </h1> -->
+    <p class="hero__description">
+      <!-- A Social Media Application with some <strong>Unique Features</strong> web
+      developer and <strong>UI/UX</strong>
+      enthusiast specialized in building stunning pixel-perfect interactive
+      websites/applications. -->
+        <div class="wrapper">
+            <form method="post">
+              {% csrf_token %}
+                <h1 class="wh1">Reset Password</h1>
+                <p style="font-size: 14px; margin-top: 10px;">Enter your Email address, and we'll email instrutions to set a new  password.</p>
+                <div class="input-box">
+                    <input type="email" name="email" autocomplete="email" maxlength="254" required id="id_email" placeholder="Email">
+                    <svg class="icnlog" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path fill= "#070a13" d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 
+                        113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 
+                        15 46.5 43.5T800-272v112H160Z"/>
+                    </svg>
+                </div>
+                <!-- <div class="remember-forgot">
+                    <label><input type="checkbox">Remember Me</label>
+                    <a href="#">Forgot Password</a>
+                </div> -->
+                <button type="submit" name="Send email" class="hero__btn btn">Confirm</button>
+                <div class="register-link">
+                  <p><a href="{% url 'signin' %}">Cancel</a></p>
+              </div>
+            </form>
+        </div>
+    </p>
+    <br>
+</section>
+{% endblock %}

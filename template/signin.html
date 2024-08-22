@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Sign In | {% endblock %}
+
+{% block content %}
+<style>
+  .main-hero{
+      height: 100vh;
+  }
+</style>
+<section class="hero container">
+    <br>
+    <!-- <h2 class="hero__subtitle">Hi, I'm Dev 👋</h2> -->
+    <!-- <h1 class="hero__title">
+      # Hash
+    </h1> -->
+    <p class="hero__description">
+      <!-- A Social Media Application with some <strong>Unique Features</strong> web
+      developer and <strong>UI/UX</strong>
+      enthusiast specialized in building stunning pixel-perfect interactive
+      websites/applications. -->
+        <div class="wrapper">
+            <form method="post">
+            {% csrf_token %}
+                <h1 class="wh1">Login</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" name="username" required>
+                    <svg class="icnlog" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path fill= "#070a13" d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 
+                        113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 
+                        15 46.5 43.5T800-272v112H160Z"/>
+                    </svg>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="pass1" placeholder="Password" name="pass1" required>
+                    <img class="icnlog" id="eyeicon" src="{%static 'images/closedeye.svg'%}" alt="">
+                </div>
+                <div class="remember-forgot">
+                    <!-- <label><input type="checkbox">Remember Me</label> -->
+                    <a href="{% url 'reset_password' %}">Forgot Password ?</a>
+                </div>
+                <button type="submit" class="hero__btn btn">Login</button>
+                <div class="register-link">
+                    <p>Dont have an account? <a href="{% url 'signup' %}">Register</a></p>
+                </div>
+                {% if messages %}
+                  <div>
+                    {% for message in messages %}
+                       <p class="feed-signin-error">{{ message }}</p>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+            </form>
+        </div>
+    </p>
+    <br>
+</section>
+<script>
+    let eyeicon = document.getElementById("eyeicon")
+    let password = document.getElementById("pass1")
+
+    eyeicon.onclick = function(){
+      if(password.type == "password"){
+        password.type = "text";
+        eyeicon.src="{%static 'images/openeye.svg'%}";
+      }
+      else{
+        password.type = "password";
+        eyeicon.src="{%static 'images/closedeye.svg'%}";
+      }
+    }
+  </script>
+{% endblock %}

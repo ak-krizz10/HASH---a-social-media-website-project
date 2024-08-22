@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}New Thought | {% endblock %}
+
+{% block content %}
+<style>
+    .main-hero{
+        height: 100vh;
+    }
+</style>
+<section class="feed-hero container">
+    <div class="thought-hero">
+        <div class="write-thought-container">
+            <div class="thought-input-container">
+                <form method="post">
+                {% csrf_token %}
+                <textarea id="id_caption" placeholder="What's on your mind ? &#10;Share it on #Thoughts" rows ='2' name="tweet" class="auto-resize" oninput="autoResize(this)"></textarea>
+            </div>
+            <br>
+            <div class="post-btn">
+                <button class="header__resume btn"  type="submit">Share Now</button>
+            </div>
+            <br>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+    function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px';
+    }
+    
+    function previewImage(input) {
+    var previewContainer = document.getElementById('imagePreview');
+    var previewImage = previewContainer.querySelector('img');
+
+    if (previewImage) {
+        previewImage.src = URL.createObjectURL(input.files[0]);
+    } 
+    else 
+    {
+        var newImage = document.createElement('img');
+        newImage.src = URL.createObjectURL(input.files[0]);
+        newImage.classList.add('preview-image');
+        previewContainer.appendChild(newImage);
+    }
+}
+</script>
+{% endblock %}
